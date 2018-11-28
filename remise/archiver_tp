@@ -1,0 +1,2 @@
+#!/bin/sh
+tar -czvf tp2.tgz *

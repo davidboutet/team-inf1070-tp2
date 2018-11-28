@@ -1,0 +1,45 @@
+#!/bin/sh
+
+get_stat() {
+    if   [ "$1" = "weekday" ]; then format='%u%a'
+    elif [ "$1" = "month" ];   then format='%b'; fi
+    for f in $2/*; do
+        date -r "$f" "+$format"
+    done
+}
+
+get_day_parts() {
+    for f in "$1"/*; do
+        hour="$(date -r "$f" +'%H')"
+        if   [ "$hour" -le 6 ];  then echo "1Night"
+        elif [ "$hour" -le 12 ]; then echo "2Morning"
+        elif [ "$hour" -le 18 ]; then echo "3Afternoon"
+        else                          echo "4Evening"; fi
+    done
+}
+
+get_month_parts() {
+    for f in "$1"/*; do
+        day="$(date -r "$f" +'%d')"
+        if   [ "$day" -le 10 ]; then echo "1Beginning"
+        elif [ "$day" -le 20 ]; then echo "2Middle"
+        else                         echo "3End"; fi
+    done
+}
+
+stat="$1"
+dir="$2"
+
+if [ "$stat" = "weekday" ]; then
+    echo "   Freq WeekDay"
+    get_stat weekday "$dir" | sort | sed 's/^.//' | uniq -c
+elif [ "$stat" = "daypart" ]; then
+    echo "   Freq DayPart"
+    get_day_parts "$dir" | sort | sed 's/^.//' | uniq -c
+elif [ "$stat" = "monthpart" ]; then
+    echo "   Freq MonthPart"
+    get_month_parts "$dir" | sort | sed 's/^.//' | uniq -c
+elif [ "$stat" = "month" ]; then
+    echo "   Freq Month"
+    get_stat month "$dir" | sort -M | uniq -c
+fi

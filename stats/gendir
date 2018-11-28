@@ -1,0 +1,8 @@
+#!/bin/sh
+
+dirname=$(mktemp -d)
+while read d; do
+    filename=$(cat /dev/urandom | tr -cd a-z0-9 | head -c 20)
+    touch -d "$d" "$dirname/$filename"
+done < dates.txt
+echo $dirname
