@@ -1,0 +1,14 @@
+#!/bin/sh
+file="$1"
+filetype="$(file "$file" -b --mime-type)"
+
+if [ "$filetype" = "application/gzip" ]; then
+    gzip -d "$file"
+elif [ "$filetype" = "application/x-xz" ]; then
+    unxz "$file"
+elif [ "$filetype" = "application/x-bzip2" ]; then
+    bzip2 -d "$file"
+else
+    echo "Impossible de décompresser le fichier: format non reconnu"
+fi
+

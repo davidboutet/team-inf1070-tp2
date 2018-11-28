@@ -1,0 +1,2 @@
+#!/bin/sh
+date -d "$(uptime -s)" "+Le systeme tourne depuis le %d %b %y"
