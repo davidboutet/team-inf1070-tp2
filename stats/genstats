@@ -1,0 +1,9 @@
+#!/bin/sh
+./getstats weekday "$1" | gnuplot -e "filename='img4.png';title='weekday'" genhist.gnuplot
+./getstats daypart "$1" | gnuplot -e "filename='img1.png';title='daypart'" genhist.gnuplot
+./getstats month "$1" | gnuplot -e "filename='img2.png';title='month'" genhist.gnuplot
+./getstats monthpart "$1" | gnuplot -e "filename='img3.png';title='monthpart'" genhist.gnuplot
+
+montage img[1-4].png -tile 2x2 -geometry 600x600 $2
+
+rm img[1-4].png
