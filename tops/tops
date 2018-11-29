@@ -1,0 +1,7 @@
+#!/bin/sh
+echo 'TOP   USER       PID %CPU %MEM    VSZ     TIME COMMAND'
+echo -n '%CPU: '  "$(ps -eo user,pid,pcpu,pmem,vsz,time,comm --sort=-pcpu | head -2 | tail -1)" "\n"
+echo -n 'VSZ:  '  "$(ps -eo user,pid,pcpu,pmem,vsz,time,comm --sort=-vsz | head -2 | tail -1)" "\n"
+echo -n '%MEM: '  "$(ps -eo user,pid,pcpu,pmem,vsz,time,comm --sort=-pmem | head -2 | tail -1)" "\n"
+echo -n 'TIME: '  "$(ps -eo user,pid,pcpu,pmem,vsz,time,comm --sort=-time | head -2 | tail -1)" "\n"
+
