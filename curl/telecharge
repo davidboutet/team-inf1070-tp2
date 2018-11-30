@@ -4,6 +4,6 @@ folder="$1"
 mkdir -p "$folder"
 cd "$folder"
 
-curl "https://info.uqam.ca/~privat/INF1070/" | sed "^\.\/.*.pdf$" > files.txt
+curl "https://info.uqam.ca/~privat/INF1070/" | sed -n 's/.*href="\(\.\/.*\.pdf\)".*/\1/p'
 
 echo "$(pwd)"
