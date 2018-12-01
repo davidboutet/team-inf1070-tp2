@@ -1,9 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 
 folder="$1"
 mkdir -p "$folder"
 cd "$folder"
 
-curl "https://info.uqam.ca/~privat/INF1070/" | sed -n 's/.*href="\(\.\/.*\.pdf\)".*/\1/p'
+curl -s "https://info.uqam.ca/~privat/INF1070/" | sed -n 's/.*href="\(\.\/.*\.pdf\)".*/\1/p' > files
+sort -u files > filesUniq
 
-echo "$(pwd)"
+while read p; do
+    if [ -f "${p#??}" ]; then
+        echo "Le fichier https://info.uqam.ca/~privat/INF1070${p#?} a déjà été téléchargé"
+    else
+        echo "Téléchargement de https://info.uqam.ca/~privat/INF1070${p#?}"
+        curl -O -J -s "https://info.uqam.ca/~privat/INF1070${p#?}"
+    fi
+done <filesUniq
+
+rm files
+rm filesUniq
