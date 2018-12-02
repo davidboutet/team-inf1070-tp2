@@ -40,7 +40,7 @@ Décrire votre solution ici.
 
 ### État de l'exercice: résolu
 
-La solution de l'exercise se trouve dans le script `uptime/`
+La solution de l'exercise se trouve dans le dossier `uptime/`
 
 `sh quand`
 
@@ -54,7 +54,7 @@ Ce script affiche a l'ecran depuis quand le systeme roule avec le format DD MMM 
 
 ### État de l'exercice: résolu
 
-La solution de l'exercise se trouve dans le script `compresse/`
+La solution de l'exercise se trouve dans le dossier `compresse/`
 
 `sh decompresser`
 
@@ -66,10 +66,6 @@ Le `if elif else` sert a savoir avec quelle type de fichier nous avons affaire.
 `gzip -d` `gzip` est l'utilitaire pour le fichier `gzip` et l'argument `-d` sert a decompresser le fichier.
 `unxz` sert a decompresser un fichier de type `xz`.
 `bzip2 -d` `bzip2` est l'utilitaire pour le fichier de type `bzip2` et l'argument `-d` sert a decompresser le fichier.
-
-
-
-
 
 
 ## Solution de l'exercice 4
@@ -106,6 +102,21 @@ Décrire votre solution ici.
 
 ## Solution de l'exercice 8
 
-### État de l'exercice: résolu, partiellement résolu ou non résolu
+### État de l'exercice: résolu
+La solution de l'exercise se trouve dans le dossier `curl/`
 
-Décrire votre solution ici.
+`sh telecharge pdf`
+
+Ce script télécharge toutes les notes de cours sur la page `https://info.uqam.ca/~privat/INF1070/` et les met dans le dossier passé en argument.
+
+`folder="$1"` sert à mettre l'argument 1 dans la variable `folder`
+Le if suivant sert à valider le si un argument est passé, sinon un message d'information indique a l'utilisateur que les fichiers seront a la racine du script.
+Si l'argument n'est pas vide, le dossier est créer et change de répertoire pour ce dernier.
+Par la suite on télécharge la page du cours pour ainsi récupérer seulement les pdf du cours avec un regex qui match seulement ce qui commence par `./` et se termine par `.pdf`, le `sort -u > filesUniq` sert à créer un fichier avec une liste de nom de fichier unique.
+Une boucle while sur chaque ligne du fichier filesUniq ainsi qu'un if pour vérifier la présence ou pas du fichier à télécharger.
+`${p#??}` est utilisé pour commencer la string 2 caracteres plus loin pour ainsi enlever le `./` du début.
+Si le fichier est déja présent, un message affiche que le fichier est déjà téléchargé. Dans le cas contraire, un message indique que le fichier se télécharge. La commande `curl` est utilisée avec les arguments `-O -J` pour conservé le nom du fichier et `-s` pour etre en mode silencieux, n'affiche pas la progression.
+
+
+
+

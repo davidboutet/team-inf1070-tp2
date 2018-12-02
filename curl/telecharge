@@ -3,11 +3,11 @@
 folder="$1"
 
 if [ ! "$folder" ]; then
-    exit
+    echo "Les fichiers téléchargés seront à la racine du script."    
+    else
+    mkdir -p "$folder"
+    cd "$folder"
 fi
-
-mkdir -p "$folder"
-cd "$folder"
 
 curl -s "https://info.uqam.ca/~privat/INF1070/" | sed -n 's/.*href="\(\.\/.*\.pdf\)".*/\1/p' | sort -u > filesUniq
 
