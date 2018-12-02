@@ -1,11 +1,15 @@
 #!/bin/bash
 
 folder="$1"
+
+if [ ! "$folder" ]; then
+    exit
+fi
+
 mkdir -p "$folder"
 cd "$folder"
 
-curl -s "https://info.uqam.ca/~privat/INF1070/" | sed -n 's/.*href="\(\.\/.*\.pdf\)".*/\1/p' > files
-sort -u files > filesUniq
+curl -s "https://info.uqam.ca/~privat/INF1070/" | sed -n 's/.*href="\(\.\/.*\.pdf\)".*/\1/p' | sort -u > filesUniq
 
 while read p; do
     if [ -f "${p#??}" ]; then
@@ -16,5 +20,4 @@ while read p; do
     fi
 done <filesUniq
 
-rm files
 rm filesUniq
