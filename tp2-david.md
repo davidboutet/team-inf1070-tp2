@@ -152,8 +152,19 @@ Un heredoc et la commande `cat` sont ensuite utilisés afin d'afficher les résu
 
 ### État de l'exercice: résolu
 
-Décrire votre solution ici.
+La solution de l'exercise se trouve dans le dossier `stats/`
 
+`sh genstats`
+
+Le script génère quatre graphiques donnant des statistiques sur les dernières dates de modifications des fichiers d'un répertoire donné en premier argument, puis en fait un montage en une seule image nommé selon le deuxième argument donné. Les quatres images initales sont par la suite supprimé avant la fin de l'exécution.
+
+Le script `./getstats` avec l'argument `weekday` génère les statistiques liés au jour de la semaine, puis la commande `gnuplot -e "filename='img4.png';title='weekday'" genhist.gnuplot` génère l'image `img1.png` contenant un graphique basé sur ces statistiques.
+
+Le même principe est appliqué pour créer les images `img2.png`,`img3.png` et `img4.png` qui donnent les statistiques de moment de la journée, de mois et de période du mois respectivement.
+
+La commande `montage` avec en argument le glob `img[1-4].png`, soit les quatres images générés plus tôt, l'option `-tile 2x2` pour le placement des images et l'option `-geometry 600x600` pour la taille de l'image finale est utilisé afin de faire un montage des quatres images titré selon le deuxième argument donné au script.
+
+Les images sont ensuite supprimés à l'aide de la commande `rm img[1-4].png`
 
 
 ## Solution de l'exercice 7
