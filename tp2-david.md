@@ -32,10 +32,17 @@ qui produit l'archive `tp2.tgz`. Ensuite, il suffit de déposer le fichier
 
 ## Solution de l'exercice 1
 
-### État de l'exercice: résolu, partiellement résolu ou non résolu
+### État de l'exercice: résolu 
 
-Décrire votre solution ici.
+La solution de l'exercise se trouve dans le dossier `tops/`
 
+Le script affiche à l'écran les quatres processus les plus gourmant, selon quatre critères différents.
+
+La commande `ps` est utilisé afin d'afficher les processus. L'option `-e` est utilisé afin d'afficher tous les processus et l'option `-o` est utilisé afin de pouvoir spécifier le format désiré, soit `user,pid,pcpu,pmem,vsz,time,comm`. L'option `--sort` est utilisé afin de pouvoir classer les résultat selon le critère voulu. Par exemple `--sort=-pcpu` pour le % de CPU utilisé.
+
+Les commandes `head -2` et `tail -1` sont ensuite utilisée afin d'uniquement afficher le premier résultat.
+
+Finalement, la commande `echo` est utilisé afin de formater et d'afficher les résultats. L'option `-n` est utilisée afin d'afficher plusieurs éléments sur une même ligne.
 
 ## Solution de l'exercice 2
 
@@ -77,18 +84,27 @@ La solution de l'exercise se trouve dans le dossier `adn/`
 
 `sh adn`
 
-Ce script analyse des fichier de séquences d'ADN composés des charactères `A`, `C` `G` ou `T` et confirme ou non la présence de certain marqueurs en reconnaissant certains motifs.
+Ce script analyse le fichier fichier de séquences d'ADN composés des charactères `A`, `C` `G` ou `T` et confirme ou non la présence de certain marqueurs en reconnaissant certains motifs.
 
-La variable `a=$(grep -o 'A' $1 | wc -l)`permet de récupérer le nombre de d'occurence du charactère `A` en utilisant `grep -c` pour afficher seulement toutes les occurences de `A` séparés par un saut de ligne et `wc -l` afin de compter toutes les lignes générés. Le même principe est utlisé afin de compter les charactères `C`,`G` et `T`.
+La variable `a=$(grep -o 'A' $1 | wc -l)`permet de récupérer le nombre de d'occurences du charactère `A` en utilisant `grep -c` pour afficher seulement toutes les occurences de `A` séparés par un saut de ligne et `wc -l` afin de compter toutes les lignes générés. Le même principe est utlisé afin de compter les charactères `C`,`G` et `T` et stocker le tout en variables.
 
+La variable `cgt=$((c + g + t))` permet d'additionner les variables `c`, `g` et `t` et de stocker le tout.
 
+Le premier `if` utilise le test `[ "$a" -gt "$cgt" ]` afin de vérifier si il y a plus d'occurences du charactère `A` que du sous groupe `[CGT]` et initialise la variable `doma` avec `oui` ou `non` selon le résultat afin de tester le marquer `DOM-A`.
 
+Le deuxième `if` utilise la commande `grep -E` afin de reconnaitre la présence de l'expresion ERE `'(.)\1{5}'` dans le fichier donné en argument `$1` c'est-à-dire de vérifier si un même charactère est répété 6 fois de façon consécutive et initialise la variable `cons6` avec `oui` ou `non` selon le résultat afin de tester le marquer `CONS-6`. `1>/dev/null` redirige la sortie standard afin de ne pas afficher le résultat du `grep`
 
+Le troisième `if` utilise la commande `grep -E` afin de reconnaitre la présence de l'expression ERE `'(.)(.)(.)(.)(.).\5\4\3\2\1'` dans le fichier donné en argument `$1` c'est-à-dire de vérifier la présence d'un palindrome de longueur 11 et initialise la variable `pal11` avec `oui` ou `non` selon le résultat afin de tester le marquer `PAL-11`. `1>/dev/null` redirige la sortie standard afin de ne pas afficher le résultat du `grep`
 
+Le quatrième `if` utilise deux commandes `grep -E` lié par un OU `||` afin de reconnaitre la d'une des deux expressions BRE suivantes :  `'[GTA]C[GTA]C[GTA]C[GTA]C[GTA]C'` et `'C[GTA]C[GTA]C[GTA]C[GTA]C[GTA]'` dans le fichier donné en argument `$1` c'est-à-dire de vérifier la présence d'une alternance entre la lettre C et une lettre différente de C de longueur 10 et initialise la variable `altc10` avec `oui` ou `non` selon le résultat afin de tester le marquer `ALT-C10`. `1>/dev/null` redirige la sortie standard afin de ne pas afficher le résultat du `grep`
+
+Le cinquième `if` utilise la commande `grep -E` afin de reconnaitre la présence de l'expression ERE `'(......).(......).*\1.\2'` dans le fichier donné en argument `$1` c'est-à-dire de vérifier la présence d'un motif de longueur 13 qui se répète plus loin ayant subit seulement une mutation en son centre et initialise la variable `pal11` avec `oui` ou `non` selon le résultat afin de tester le marquer `MUT-13`. `1>/dev/null` redirige la sortie standard afin de ne pas afficher le résultat du `grep`
+
+La commande `echo` est ensuite utilisée à plusieurs reprises afin d'afficher les résultats des différents tests stocké en variables.
 
 ## Solution de l'exercice 5
 
-### État de l'exercice: résolu, partiellement résolu ou non résolu
+### État de l'exercice: résolu
 
 Décrire votre solution ici.
 
@@ -96,7 +112,7 @@ Décrire votre solution ici.
 
 ## Solution de l'exercice 6
 
-### État de l'exercice: résolu, partiellement résolu ou non résolu
+### État de l'exercice: résolu
 
 Décrire votre solution ici.
 
