@@ -106,9 +106,47 @@ La commande `echo` est ensuite utilisée à plusieurs reprises afin d'afficher l
 
 ### État de l'exercice: résolu
 
-Décrire votre solution ici.
+La solution de l'exercise se trouve dans le dossier `verif/`
 
+`sh verif`
 
+Le script vérifie la présence et le format du document `tp2.md` dans le directoire de remise. Il ne prend aucun argument ou option.
+
+Les variables `oui` et `non` représentent les résultats possibles des différentes validations et serviront à son affichage.
+
+Le premier `if` utilise un test `[-e]` avec en argument le nom de fichier `Tp2.md`afin des s'assurer de la présence du fichier dans le répertoire courant. La variable `fichier` est modifiée selon le résultat.
+
+La variable `tp` utilise un `grep -c` afin de représenter le nombre de titre `# Travail pratique` dans le document.
+
+Le deuxième `if` utilise un test `[-eq]` entre la variable `$tp` et la valeur `1` afin de s'assurer qu'il n'y a qu'un seul titre. La variable `titre` est modifiée selon le résultat.
+
+La variable `section` utilise un `grep -E -m -o` afin de représenter la première occurence de l'expression ERE `"##(.){15}"` dans le fichier `tp2.md`, soit le premier titre de section.
+
+La variable `sectionEx` représente le bon format de la première section.
+
+Le troisième `if` utilise un test `[=]` afin de comparer les deux variables `$section` et `$sectionEx` afin de s'assurer que la première section est bien formatée. La variable `ident` est modifiée selon le résultat.
+
+Le quatrième `if` utilise un `grep -E` afin de reconnaitre l'expression ERE `'^\-\ Groupe\ \ \ \ \ : (2[01]|30)$'` dans le fichier `tp2.md` et ainsi confirmer que le numéro de groupe est `20`,`21` ou `30`. La redirection `1>/dev/null` redirige l'entrée standard afin de ne pas afficher le résultat du `grep`. La variable `groupe` est modifiée selon le résultat.
+
+Le cinquième `if` utilise un `grep -E` afin de reconnaitre l'expression ERE `'^\-\ Enseignant\ :\ (Jean Privat|Alexandre Blondin Massé)$'` dans le fichier `tp2.md` et ainsi confirmer que le nom de l'enseignant est valide. La redirection `1>/dev/null` redirige l'entrée standard afin de ne pas afficher le résultat du `grep`. La variable `prof` est modifiée selon le résultat.
+
+La variable `nbAuteur` utilise un `grep -c -E` afin de représenter la nombre d'occurences de l'expression ERE `'^\-\ Auteur\ \ \ \ \ : .*$'` dans le fichier `tp2.md`, soit le nombre de lignes d'identification des auteurs.
+
+Le sixième `if` utilise deux tests `[-eq]` lié par un ou `||` afin de tester si la variable `nbAuteur` est bien égale à `1` ou `2`. La variable `auteur` est modifiée selon le résultat.
+
+La variable `nbNomCp` utilise un `grep -c -E` afin de représenter la nombre d'occurences de l'expression ERE `'\-\ Auteur\ \ \ \ \ : [[:alpha:]]+\ [[:alpha:]]+\ \([[:upper:]]{4}[[:digit:]]{8}\)'` dans le fichier `tp2.md`, soit le nombre de lignes d'idenfications bien formatées au document.
+
+Le septième `if` utilise un test `[=]` afin de tester si la variable `nbAuteur` est égale à la variable `nbNomCp` afin de tester si toutes les identifications d'auteurs sont bien formatés. La variable `auteur` est modifiée selon le résultat.
+
+La variable `nbSections` utilise un `grep -c` afin de représenter la nombre d'occurences de l'expression ERE `"^## Solution de l'exercice [0-9]$"` dans le fichier `tp2.md`, soit le nombre de sections bien formatés.
+
+Le neuvième `if` utilise un test `[-eq]` afin de tester si la variable `nbSections` est bien égale à 9. La variable `sections` est modifiée selon le résultat.
+
+La variable `nbSSections` utilise un `grep -c` afin de représenter la nombre d'occurences de l'expression ERE `"^### État de l'exercice: \(résolu\|partiellement résolu\|non résolu\)$"` dans le fichier `tp2.md`, soit le nombre de sous-sections bien formatés.
+
+Le dixième `if` utilise un test `[-eq]` afin de tester si la variable `nbSSections` est bien égale à 9. La variable `ssections` est modifiée selon le résultat.
+
+Un heredoc et la commande `cat` sont ensuite utilisés afin d'afficher les résultats.
 
 ## Solution de l'exercice 6
 
