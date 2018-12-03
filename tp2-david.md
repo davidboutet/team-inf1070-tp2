@@ -8,6 +8,7 @@
 - Groupe     : 20
 - Enseignant : Jean Privat
 - Auteur     : David Boutet (BOUD31109107)
+- Auteur     : Maxime Nicol (NICM18019305)
 
 
 
@@ -70,9 +71,18 @@ Le `if elif else` sert a savoir avec quelle type de fichier nous avons affaire.
 
 ## Solution de l'exercice 4
 
-### État de l'exercice: résolu, partiellement résolu ou non résolu
+### État de l'exercice: résolu
 
-Décrire votre solution ici.
+La solution de l'exercise se trouve dans le dossier `adn/`
+
+`sh adn`
+
+Ce script analyse des fichier de séquences d'ADN composés des charactères `A`, `C` `G` ou `T` et confirme ou non la présence de certain marqueurs en reconnaissant certains motifs.
+
+La variable `a=$(grep -o 'A' $1 | wc -l)`permet de récupérer le nombre de d'occurence du charactère `A` en utilisant `grep -c` pour afficher seulement toutes les occurences de `A` séparés par un saut de ligne et `wc -l` afin de compter toutes les lignes générés. Le même principe est utlisé afin de compter les charactères `C`,`G` et `T`.
+
+
+
 
 
 
