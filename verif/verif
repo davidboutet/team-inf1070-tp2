@@ -9,12 +9,12 @@ else
 	fichier=$non
 fi
 
-tp="$( grep -c '# Travail pratique' tp2.md )"
+tp="$( grep -c '\# Travail pratique 2' tp2.md )"
 
 if [ $tp -eq 1 ]; then
-        titre=$oui
+    titre=$oui
 else
-        titre=$non
+    titre=$non
 fi
 
 section="$( grep -E -m 1 -o  "##(.){15}" tp2.md )"
@@ -23,18 +23,18 @@ sectionEx='## Identification'
 if [ "$section" = "$sectionEx" ]; then
 	ident=$oui
 else
-        ident=$non
+    ident=$non
 fi
 
 
-if grep -E '^\-\ Groupe\ \ \ \ \ : (2[01]|30)$' tp2.md 1>/dev/null 2>1; then
+if grep -E '^\-\ Groupe\ \ \ \ \ : (2[01]|30)$' tp2.md 1>/dev/null 2>/dev/null; then
 	groupe=$oui
 else
 	groupe=$non
 fi
 
 
-if grep -E '^\-\ Enseignant\ :\ (Jean Privat|Alexandre Blondin Massé)$' tp2.md 1>/dev/null 2>1; then
+if grep -E '^\-\ Enseignant\ :\ (Jean Privat|Alexandre Blondin Massé)$' tp2.md 1>/dev/null 2>/dev/null; then
 	prof=$oui
 else	
 	prof=$non
@@ -42,15 +42,13 @@ fi
 
 
 nbAuteur=$(grep -c -E '^\-\ Auteur\ \ \ \ \ : .*$' tp2.md 2>/dev/null)
-
 if [ $nbAuteur -eq 1 ] || [ $nbAuteur -eq 2 ]; then
-       auteur=$oui
+   auteur=$oui
 else
-       auteur=$non
+   auteur=$non
 fi
 
-nbNomCp=$(grep -c -E '\-\ Auteur\ \ \ \ \ : [[:alpha:]]+\ [[:alpha:]]+\ \([[:upper:]]{4}[[:digit:]]{8}\)' tp2.md 1>/dev/null)
-
+nbNomCp=$(grep -c -E '\-\ Auteur\ \ \ \ \ : [[:alpha:]]+\ [[:alpha:]]+\ \([[:upper:]]{4}[[:digit:]]{8}\)' tp2.md 2>/dev/null)
 if [ $nbAuteur = $nbNomCp ]; then
 	nomcp=$oui
 else
@@ -60,17 +58,16 @@ fi
 nbSections=$(grep -c "^## Solution de l'exercice [0-9]$" tp2.md 2>/dev/null)
     
 if [ $nbSections  -eq 9 ]; then
-       sections=$oui
+   sections=$oui
 else
-       sections=$non 
+   sections=$non 
 fi
 
 nbSSections=$(grep -c "^### État de l'exercice: \(résolu\|partiellement résolu\|non résolu\)$" tp2.md 2>/dev/null)
-
-if [ $nbSSections  -eq 9 ]; then
-       ssections=$oui
+if [ $nbSSections -eq 9 ]; then
+    ssections=$oui
 else
-       ssections=$non
+    ssections=$non
 fi
 
 cat  <<FIN

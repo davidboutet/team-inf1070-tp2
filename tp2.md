@@ -28,7 +28,7 @@ qui produit l'archive `tp2.tgz`. Ensuite, il suffit de déposer le fichier
 
 ## Solution de l'exercice 1
 
-### État de l'exercice: résolu 
+### État de l'exercice: résolu
 
 La solution de l'exercise se trouve dans le dossier `tops/`
 
