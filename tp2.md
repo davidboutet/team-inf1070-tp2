@@ -168,11 +168,21 @@ Les images sont ensuite supprimés à l'aide de la commande `rm img[1-4].png`
 
 ## Solution de l'exercice 7
 
-### État de l'exercice: résolu, partiellement résolu ou non résolu
+### État de l'exercice: résolu
 
-Décrire votre solution ici.
+1- `$(ls $*)` erreurs possibles: récupérer des fichiers avec des caractères spéciaux qui vont faussé la boucle.
+Remplacer le `$(ls $*)` par `"$@"` pour avoir les arguments déjà séparé et éviter les erreurs avec les caractères spéciaux.
 
+2- `echo $(basename $i ".md")` erreurs possibles: echo non protégé par des guillemets, `$i` non protégé également ce qui peut causé des erreurs d'argument involontaire ou de syntaxe non respecté.
+Ajouter les guillemets double pour le echo et pour le `basename("$i")` pour éviter les erreurs possible avec les caractères spéciaux.
+L'ajout de `--` après basename pour éviter que le nom des fichiers soient considérés comme des arguments.
 
+3- `pandoc $i -t "latex" -o $x.pdf` erreurs possibles: ne pas récupérer les bon fichier en entré, ne pas avoir un format valide pour le fichier de sortie, le gestion du répertoire n'est pas présente.
+L'ajout des doubles guillemets pour le fichier d'entré et en sortie pour éviter les erreurs avec les caractères spéciaux.
+L'ajout du `./` dans le nom du fichier est utilisé pour les fichiers avec des espaces ou toute autre charactère anormaux.
+L'ajout du dirname dans le fichier de sortie sert à mettre le fichier dans son répertoire courant et non toujours à la racine du script.
+
+4- L'ajout de `dirname=$(echo "$(dirname -- "$i")")` sera utile lors de la création du pdf pour mettre ce dernier dans le bon répertoire.
 
 ## Solution de l'exercice 8
 
