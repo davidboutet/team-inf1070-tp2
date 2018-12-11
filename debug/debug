@@ -1,11 +1,13 @@
 #!/bin/sh
 
+#script suggéré
 for i in "$@"; do
-    x=$(echo "$(basename -- "$i" ".md")");
-    y=$(echo "$(dirname -- "$i")");
+    filename=$(echo "$(basename -- "$i" ".md")");
+    dirname=$(echo "$(dirname -- "$i")");
     pandoc "./$i" -t "latex" -o "$y/$x.pdf";
 done
 
+#script original
 #for i in $(ls $*); do 
 #    #x=$(echo $(basename $i ".md"));
 #    #pandoc $i -t "latex" -o $x.pdf;
